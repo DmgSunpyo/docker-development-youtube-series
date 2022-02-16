@@ -19,19 +19,19 @@ jobs:
         sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD docker.io
     - name: docker build csharp
       run: |
-        sudo docker build ./c# -t krandmm/csharp:1.0.${{ github.head_ref }}
+        sudo docker build ./c# -t krandmm/csharp:1.0.${GITHUB.READ_REF}
     - name: docker build nodejs
       run: |
-        sudo docker build ./nodejs -t krandmm/nodejs:1.0.${GITHUB_REF#refs/heads/}
+        sudo docker build ./nodejs -t krandmm/nodejs:1.0.${GITHUB.READ_REF}
     - name: docker build python
       run: |
-        sudo docker build ./python -t krandmm/python:1.0.${GITHUB_REF#refs/heads/}
+        sudo docker build ./python -t krandmm/python:1.0.${GITHUB.READ_REF}
     - name: docker build golang
       run: |
         sudo docker build ./golang -t krandmm/golang:1.0.${{ github.head_ref }}
     - name: docker push
       run: |
         sudo docker push krandmm/csharp:1.0.${{ github.head_ref }}
-        sudo docker push krandmm/nodejs:1.0.${GITHUB_REF#refs/heads/}
-        sudo docker push krandmm/golang:1.0.${GITHUB_REF#refs/heads/}
+        sudo docker push krandmm/nodejs:1.0.${GITHUB.READ_REF}
+        sudo docker push krandmm/golang:1.0.${GITHUB.READ_REF}
         sudo docker push krandmm/python:1.0.${{ github.head_ref }}
