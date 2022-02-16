@@ -19,8 +19,8 @@ jobs:
         sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD docker.io
     - name: docker build python
       run: |
-        sudo docker build ./python -t python:1.0.0
-        sudo docker tag python:1.0.0 krandmm/python:1.0.1
+        sudo docker build ./python -t python:1.0.1
+        sudo docker tag python:1.0.1 krandmm/python:1.0.1
     - name: docker push
       run: |
-        sudo docker push krandmm/python:1.0.0
+        sudo docker push krandmm/python:1.0.1
