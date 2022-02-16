@@ -19,7 +19,8 @@ jobs:
         sudo docker login -u "krandmm" -p "tmwh!1004" docker.io
     - name: docker build python
       run: |
-        docker build ./python -t krandmm/python:1.0.0
+        sudo docker build ./python -t python:1.0.0
+        sudo docker tag python:1.0.0 krandmm/python:1.0.0
     - name: docker push
       run: |
-        docker push krandmm/python:1.0.0
+        sudo docker push krandmm/python:1.0.0
