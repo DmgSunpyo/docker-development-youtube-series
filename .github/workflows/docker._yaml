@@ -31,7 +31,7 @@ jobs:
         sudo docker build ./golang -t krandmm/golang:1.0.0
     - name: docker push
       run: |
-        sudo docker push krandmm/nodejs:1.0.0
+        sudo docker push krandmm/csharp:1.0.0
         sudo docker push krandmm/nodejs:1.0.0
         sudo docker push krandmm/golang:1.0.0
         sudo docker push krandmm/python:1.0.3
