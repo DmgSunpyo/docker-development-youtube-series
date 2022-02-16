@@ -16,7 +16,7 @@ jobs:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}   
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
       run: |
-        sudo docker login -u "krandmm" -p "tmwh!1004" docker.io
+        sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD docker.io
     - name: docker build python
       run: |
         sudo docker build ./python -t python:1.0.0
