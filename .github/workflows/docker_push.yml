@@ -1,0 +1,55 @@
+###########################################################
+# Rename the file extension to ".yaml" (remove "_") to enable
+###########################################################
+
+name: Deploy to Amazon ECS
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: $
+        aws-secret-access-key: $
+        aws-region: us-west-2
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: $
+        ECR_REPOSITORY: my-app
+        IMAGE_TAG: $ 
+        
+    - name: docker build csharp
+      run: |
+        sudo docker build ./c# -t my-app/csharp:1.0.${{GITHUB.READ_REF}}
+    - name: docker build nodejs
+      run: |
+        sudo docker build ./nodejs -t my-app/nodejs:1.0.${{GITHUB.READ_REF}}
+    - name: docker build python
+      run: |
+        sudo docker build ./python -t my-app/python:1.0.${{GITHUB.READ_REF}}
+    - name: docker build golang
+      run: |
+        sudo docker build ./golang -t my-app/golang:1.0.${{ github.head_ref }}
+    - name: docker push
+      run: |
+        sudo docker push my-app/csharp:1.0.${{GITHUB.READ_REF}}
+        sudo docker push my-app/nodejs:1.0.${{GITHUB.READ_REF}}
+        sudo docker push my-app/golang:1.0.${{GITHUB.READ_REF}}
+        sudo docker push my-app/python:1.0.${{ github.head_ref }}
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
